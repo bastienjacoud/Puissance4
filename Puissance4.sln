@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puissance4", "Puissance4\Puissance4\Puissance4.csproj", "{049C7131-2583-47A5-9E6C-7C48EB783CA3}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Puissance4Content", "Puissance4\Puissance4Content\Puissance4Content.contentproj", "{B79421BA-62FA-4B69-AD18-AAC2705F5F2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{049C7131-2583-47A5-9E6C-7C48EB783CA3}.Debug|x86.ActiveCfg = Debug|x86
+		{049C7131-2583-47A5-9E6C-7C48EB783CA3}.Debug|x86.Build.0 = Debug|x86
+		{049C7131-2583-47A5-9E6C-7C48EB783CA3}.Release|x86.ActiveCfg = Release|x86
+		{049C7131-2583-47A5-9E6C-7C48EB783CA3}.Release|x86.Build.0 = Release|x86
+		{B79421BA-62FA-4B69-AD18-AAC2705F5F2B}.Debug|x86.ActiveCfg = Debug|x86
+		{B79421BA-62FA-4B69-AD18-AAC2705F5F2B}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
