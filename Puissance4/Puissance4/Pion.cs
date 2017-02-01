@@ -7,5 +7,6 @@ namespace Puissance4
 {
     class Pion
     {
+
     }
 }

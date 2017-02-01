@@ -1,0 +1,15 @@
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Puissance4.exe
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Puissance4.pdb
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.dll
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.xml
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.exe
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.pdb
