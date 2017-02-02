@@ -10,9 +10,7 @@ namespace Puissance4
 {
     public class Grille : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        SpriteBatch _spriteBatch;
         private Case[,] _map;
-        private ObjetPuissance4 _grille;
 
 
 
