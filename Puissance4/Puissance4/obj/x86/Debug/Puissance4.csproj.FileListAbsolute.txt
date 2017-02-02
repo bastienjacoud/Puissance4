@@ -13,3 +13,7 @@ C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Micr
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.exe
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.pdb
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\jaune.xnb
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\rouge.xnb
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\cadre.xnb
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\Bitmap1.xnb

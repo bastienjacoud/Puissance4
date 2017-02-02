@@ -74,10 +74,11 @@
   <ItemGroup>
     <Compile Include="Case.cs" />
     <Compile Include="Grille.cs" />
+    <Compile Include="ObjetPuissance4.cs" />
     <Compile Include="Pion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Jeu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

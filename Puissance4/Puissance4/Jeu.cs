@@ -18,6 +18,7 @@ namespace Puissance4
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Pion p;
 
         public Jeu()
         {
@@ -33,7 +34,18 @@ namespace Puissance4
         /// </summary>
         protected override void Initialize()
         {
+
+            int maxX, maxY, minX, minY;
             // TODO: Add your initialization logic here
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            // on définit les coordonnées de l'éran de sortie
+            maxX = this.GraphicsDevice.Viewport.Width;
+            maxY = this.GraphicsDevice.Viewport.Height;
+            minX = 0;
+            minY = 0;
+
+            p = new Pion(this, maxX, maxY, minX, minY);
 
             base.Initialize();
         }
@@ -88,4 +100,5 @@ namespace Puissance4
             base.Draw(gameTime);
         }
     }
+    
 }
