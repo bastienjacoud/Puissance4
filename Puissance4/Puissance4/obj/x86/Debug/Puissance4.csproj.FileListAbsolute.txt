@@ -17,3 +17,4 @@ C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Cont
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\rouge.xnb
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\cadre.xnb
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\Bitmap1.xnb
+C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.csprojResolveAssemblyReference.cache

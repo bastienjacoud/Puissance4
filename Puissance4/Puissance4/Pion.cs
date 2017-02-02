@@ -16,9 +16,9 @@ namespace Puissance4
         private double _minX;
         private double _minY;
 
-        private int _numJ;//1 si pion du joueur 1, 2 si pion du joueur 2
-        private Vector2 _posInitiale;
-        private ObjetPuissance4 _pion;
+        private int _numJ;//0 si appartient à aucun joueur(ie pas de pion dans la case), 1 si pion du joueur 1, 2 si pion du joueur 2
+        private Vector2 _posInitiale;//Position du pion avant déplacement
+        private ObjetPuissance4 _pion;//position du pion à n'importe quel moment + taille + texture
 
         public int numJ
         {
@@ -67,10 +67,15 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
+        public Pion(Game game, double maxX, double maxY, double minX, double minY, int numJ) : this(game, maxX, maxY, minX, minY)
+        {
+            _numJ = numJ;
+        }
+
         public override void Initialize()
         {
-            _posInitiale.X = (float)_maxX / 2;
-            _posInitiale.Y = (float)_maxY / 2;
+            _posInitiale.X = (float)_maxX / 15;
+            _posInitiale.Y = (float)_maxY / 20;
 
             base.Initialize();
         }
