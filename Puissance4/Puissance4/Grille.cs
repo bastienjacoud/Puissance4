@@ -30,5 +30,15 @@ namespace Puissance4
             this.Game.Components.Add(this);
             base.Initialize();
         }
+
+        public void placerPion(Game game, double maxX, double maxY, double minX, double minY, int numJ, int numCol){
+            for (int i = 0; i < 5; i++)
+            {
+                if (_map[i + 1, numCol].pion == null)
+                {
+                    _map[i, numCol].pion = new Pion(game, maxX, maxY, minX, minY, numJ);
+                }
+            }
+        }
     }
 }

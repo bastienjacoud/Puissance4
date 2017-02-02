@@ -31,7 +31,7 @@ namespace Puissance4
             }
         }
 
-        public Case(Game game,double maxX,double maxY,double minX,double minY,) : base(game)
+        public Case(Game game,double maxX,double maxY,double minX,double minY) : base(game)
         {
 
         }
