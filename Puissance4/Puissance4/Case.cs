@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Puissance4
 {
-    class Case
+    public class Case
     {
+
     }
 }

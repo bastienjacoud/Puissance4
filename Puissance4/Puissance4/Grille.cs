@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Puissance4
 {
-    class Grille
+    public class Grille
     {
 
     }
