@@ -20,6 +20,7 @@ namespace Puissance4
         SpriteBatch spriteBatch;
         private Pion p;
         private Case c;
+        private Grille g;
 
         public Jeu()
         {
@@ -36,7 +37,7 @@ namespace Puissance4
         protected override void Initialize()
         {
 
-            int maxX, maxY, minX, minY;
+            int maxX, maxY;
             // TODO: Add your initialization logic here
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -44,8 +45,9 @@ namespace Puissance4
             maxX = this.GraphicsDevice.Viewport.Width;
             maxY = this.GraphicsDevice.Viewport.Height;
 
-            p = new Pion(this, maxX, maxY);
-            c = new Case(this, maxX, maxY, 2);
+            p = new Pion(this, 10, 10);
+            //c = new Case(this, maxX, maxY, 2);
+            g = new Grille(this, maxX, maxY);
 
             base.Initialize();
         }

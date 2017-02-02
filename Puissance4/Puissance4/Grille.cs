@@ -14,27 +14,51 @@ namespace Puissance4
 
 
 
-        public Grille(Game game) : base(game)
+        public Grille(Game game, double maxX, double maxY) : base(game)
         {
-            /*
-            _map = new Case[,]
+
+            _map = new Case[6, 7];
+            double posDepartX = maxX/10;
+            double posDepartY = maxY/10;
+            for(int i=0;i<6;i++)
             {
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0}
-            };
-            */
+                posDepartX = maxX / 10;
+                for (int j=0;j<7;j++)
+                {
+                    _map[i, j] = new Case(game,posDepartX,posDepartY);
+                    posDepartX += 100;
+                }
+                posDepartY += 100;
+            }
+
             this.Game.Components.Add(this);
+        }
+
+        public override void Initialize()
+        {
             base.Initialize();
         }
 
-        public void placerPion(Game game, double maxX, double maxY, double minX, double minY, int numJ, int numCol){
-            int place = deciderPlace(numCol);
-            _map[place, numCol].pion = new Pion(game, maxX, maxY, minX, minY, numJ);
+        protected override void LoadContent()
+        {
+            base.LoadContent();
+        }
 
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
+
+        public void placerPion(Game game, double posX, double posY, int numJ, int numCol){
+            int place = deciderPlace(numCol);
+            _map[place, numCol].pion = new Pion(game, posX, posY, numJ);
+        
 
         }
 
@@ -106,11 +130,12 @@ namespace Puissance4
             }
             return gagne;
         }
-
+        /*
         public Boolean verifDiagonale()
         {
             Boolean gagne = true;
             int numJ;
         }
+        */
     }
 }

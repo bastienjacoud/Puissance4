@@ -52,17 +52,17 @@ namespace Puissance4
             }
         }
 
-        public Pion(Game game, double maxX, double maxY) : base(game)
+        public Pion(Game game, double posX, double posY) : base(game)
         {
             _numJ = 1;
             //Position par défaut
-            _posInitiale.X = (float)maxX / 15;
-            _posInitiale.Y = (float)maxY / 20;
+            _posInitiale.X = (float)posX;
+            _posInitiale.Y = (float)posY;
 
             this.Game.Components.Add(this);
         }
 
-        public Pion(Game game, double maxX, double maxY, int numJ, double posX, double posY) : this(game, maxX, maxY)
+        public Pion(Game game, double posX, double posY, int numJ) : this(game, posX, posY)
         {
             _numJ = numJ;
             //Position initiale du pion

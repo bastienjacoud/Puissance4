@@ -52,19 +52,19 @@ namespace Puissance4
             }
         }
 
-        public Case(Game game,double maxX,double maxY) : base(game)
+        public Case(Game game,double posX,double posY) : base(game)
         {
             _pion = null;
 
-            _posInitiale.X = (float)maxX / 15;
-            _posInitiale.Y = (float)maxY / 2;
+            _posInitiale.X = (float)posX;
+            _posInitiale.Y = (float)posY;
 
             this.Game.Components.Add(this);
         }
 
-        public Case(Game game, double maxX, double maxY, int numJ) : this(game,maxX,maxY)
+        public Case(Game game, double posX, double posY, double posPX,double posPY, int numJ) : this(game,posX,posY)
         {
-            _pion = new Pion(game, maxX, maxY, numJ, _posInitiale.X, _posInitiale.Y);
+            _pion = new Pion(game, posPX, posPY, numJ);
         }
 
         public override void Initialize()
