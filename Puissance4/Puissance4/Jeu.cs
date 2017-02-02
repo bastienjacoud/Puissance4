@@ -19,6 +19,7 @@ namespace Puissance4
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Pion p;
+        private Case c;
 
         public Jeu()
         {
@@ -42,10 +43,9 @@ namespace Puissance4
             // on définit les coordonnées de l'éran de sortie
             maxX = this.GraphicsDevice.Viewport.Width;
             maxY = this.GraphicsDevice.Viewport.Height;
-            minX = 0;
-            minY = 0;
 
-            p = new Pion(this, maxX, maxY, minX, minY);
+            p = new Pion(this, maxX, maxY);
+            c = new Case(this, maxX, maxY, 2);
 
             base.Initialize();
         }
