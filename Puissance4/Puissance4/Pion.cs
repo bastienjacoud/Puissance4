@@ -62,12 +62,14 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
-        public Pion(Game game, double posX, double posY, int numJ) : this(game, posX, posY)
+        public Pion(Game game, double posX, double posY, int numJ) : base(game)
         {
             _numJ = numJ;
             //Position initiale du pion
             _posInitiale.X = (float)posX;
             _posInitiale.Y = (float)posY;
+
+            this.Game.Components.Add(this);
         }
 
         public override void Initialize()
@@ -77,31 +79,33 @@ namespace Puissance4
 
         protected override void LoadContent()
         {
-            Vector2 taille;
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            if(_numJ == 1)
-            {
-                _pion = new ObjetPuissance4(Game.Content.Load<Texture2D>(@"images\jaune"),
-                _posInitiale, Vector2.Zero);
-            }
-            else if(_numJ == 2)
-            {
-                _pion = new ObjetPuissance4(Game.Content.Load<Texture2D>(@"images\rouge"),
-                _posInitiale, Vector2.Zero);
-            }
-
-            taille.X = _pion.Texture.Width;
-            taille.Y = _pion.Texture.Height;
-            _pion.Size = taille;
+                Vector2 taille;
+                _spriteBatch = new SpriteBatch(GraphicsDevice);
+                if (_numJ == 1)
+                {
+                    _pion = new ObjetPuissance4(Game.Content.Load<Texture2D>(@"images\jaune"),
+                    _posInitiale, Vector2.Zero);
+                }
+                else if (_numJ == 2)
+                {
+                    _pion = new ObjetPuissance4(Game.Content.Load<Texture2D>(@"images\rouge"),
+                    _posInitiale, Vector2.Zero);
+                }
+                taille.X = _pion.Texture.Width;
+                taille.Y = _pion.Texture.Height;
+                _pion.Size = taille;
+            
+            
 
             base.LoadContent();
         }
 
         public override void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(_pion.Texture, _pion.Position, Color.Azure);
-            _spriteBatch.End();
+                _spriteBatch.Begin();
+                _spriteBatch.Draw(_pion.Texture, _pion.Position, Color.Azure);
+                _spriteBatch.End();
+            
             base.Draw(gameTime);
         }
 

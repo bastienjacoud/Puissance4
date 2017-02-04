@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Threading;
 
 namespace Puissance4
 {
@@ -18,9 +19,10 @@ namespace Puissance4
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        KeyboardState oldKey;
         private Pion p;
-        private Case c;
         private Grille g;
+        private int colonne;
 
         public Jeu()
         {
@@ -36,18 +38,27 @@ namespace Puissance4
         /// </summary>
         protected override void Initialize()
         {
-
             int maxX, maxY;
             // TODO: Add your initialization logic here
+            //this.graphics.IsFullScreen = false;
+            this.graphics.PreferredBackBufferWidth = 1000;
+            this.graphics.PreferredBackBufferHeight = 700;
+            this.graphics.ApplyChanges();
+
+            this.Window.AllowUserResizing = true;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // on définit les coordonnées de l'éran de sortie
             maxX = this.GraphicsDevice.Viewport.Width;
             maxY = this.GraphicsDevice.Viewport.Height;
 
-            p = new Pion(this, 10, 10);
-            //c = new Case(this, maxX, maxY, 2);
+
+            colonne = 3; // placement par défaut
+            p = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2);
             g = new Grille(this, maxX, maxY);
+
+            
+
 
             base.Initialize();
         }
@@ -85,6 +96,11 @@ namespace Puissance4
                 this.Exit();
 
             // TODO: Add your update logic here
+            if (ActionClavier() != 0)
+                g.placerPion(this, 1, ActionClavier());
+
+            
+
 
             base.Update(gameTime);
         }
@@ -101,6 +117,45 @@ namespace Puissance4
 
             base.Draw(gameTime);
         }
+
+        private int ActionClavier()
+        {
+            KeyboardState keyboard = Keyboard.GetState();
+            if (keyboard.IsKeyDown(Keys.Right))
+            {
+                //on vérifie s’il est possible de se déplacer
+                if((!oldKey.IsKeyDown(Keys.Right)) && (colonne != 6))
+                {
+                    float posPX = p.pion.Position.X;
+                    posPX += 100;
+                    p.pion.Position = new Vector2(posPX, p.pion.Position.Y);
+                    colonne ++;
+                }
+            }
+            else if (keyboard.IsKeyDown(Keys.Left))
+            {
+                //on vérifie s’il est possible de se déplacer
+                if((!oldKey.IsKeyDown(Keys.Left)) && (colonne != 0))
+                {
+                    float posPX = p.pion.Position.X;
+                    posPX -= 100;
+                    p.pion.Position = new Vector2(posPX, p.pion.Position.Y);
+                    colonne --;
+                }
+            }
+            else if (keyboard.IsKeyDown(Keys.Enter))
+            {
+                //on vérifie s’il est possible de se déplacer
+                if(!oldKey.IsKeyDown(Keys.Enter))
+                {
+                    oldKey = keyboard;
+                    return colonne;
+                }
+            }
+
+            
+            oldKey = keyboard;
+            return 0;
+        }
     }
-    
 }
