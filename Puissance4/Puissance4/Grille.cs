@@ -13,16 +13,28 @@ namespace Puissance4
         private Case[,] _map;
 
 
+        public Case[,] map
+        {
+            get
+            {
+                return _map;
+            }
+            set
+            {
+                _map = map;
+            }
+        }
+
 
         public Grille(Game game, double maxX, double maxY) : base(game)
         {
 
             _map = new Case[6, 7];
-            double posDepartX = maxX/10;
-            double posDepartY = maxY/10;
+            double posDepartX;
+            double posDepartY = maxY-(6*100);
             for(int i=0;i<6;i++)
             {
-                posDepartX = maxX / 10;
+                posDepartX = (maxX-(7*100)) / 2;
                 for (int j=0;j<7;j++)
                 {
                     _map[i, j] = new Case(game,posDepartX,posDepartY);
@@ -55,23 +67,24 @@ namespace Puissance4
         }
 
 
-        public void placerPion(Game game, double posX, double posY, int numJ, int numCol){
+        public void placerPion(Game game, int numJ, int numCol){
             int place = deciderPlace(numCol);
-            _map[place, numCol].pion = new Pion(game, posX, posY, numJ);
-        
+            //_map[place, numCol].pion = new Pion(game, _map[place,numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, numJ);
+            _map[place, numCol] = new Case(game, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, numJ);
 
         }
 
         public int deciderPlace(int numCol)     // 7 col 6 lig
         {
-            for (int i = 1; i < 6; i++)     //démarre à 1 car considère que première case forcément vide (à vérifier dans appel fonction)
+            int i = 5;
+            while(i>=0)
             {
-                if (_map[i, numCol] != null)
-                {
-                    return i - 1;
-                }
+                if (_map[i, numCol].pion == null)
+                    return i;
+                else
+                    i--;
             }
-            return 5;
+            return i;
         }
 
         public Boolean verifHorizontale()
