@@ -58,6 +58,13 @@ namespace Puissance4
 
         public override void Draw(GameTime gameTime)
         {
+            for(int i=0;i<6;i++)
+            {
+                for(int j=0;j<7;j++)
+                {
+                    _map[i, j].Draw(gameTime);
+                }
+            }
             base.Draw(gameTime);
         }
 
@@ -67,11 +74,19 @@ namespace Puissance4
         }
 
 
-        public void placerPion(Game game, int numJ, int numCol){
+        public bool placerPion(Game game, int numJ, int numCol)
+        {
             int place = deciderPlace(numCol);
-            //_map[place, numCol].pion = new Pion(game, _map[place,numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, numJ);
-            _map[place, numCol] = new Case(game, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, numJ);
-
+            if(place>=0 && place <=6)
+            {
+                _map[place, numCol] = new Case(game, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, numJ);
+                return true;
+            }
+               
+            else
+            {
+                return false;
+            }
         }
 
         public int deciderPlace(int numCol)     // 7 col 6 lig

@@ -92,6 +92,9 @@ namespace Puissance4
             _spriteBatch.Draw(_case.Texture, _case.Position, Color.Azure);
             _spriteBatch.End();
 
+            if(_pion != null)
+                _pion.Draw(gameTime);
+
             base.Draw(gameTime);
         }
 
