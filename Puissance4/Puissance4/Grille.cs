@@ -154,7 +154,6 @@ namespace Puissance4
 
         public int verifDiagonale()                                             //0 si personne gagne, 1 si jaune, 2 si rouge
         {
-            Boolean gagneDiag = true;                                           //true si une des diagonales donne la victoire
             Boolean gagneDiagHG = true;
             Boolean gagneDiagHD = true;
             Boolean gagneDiagBD = true;
