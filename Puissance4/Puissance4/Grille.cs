@@ -111,14 +111,19 @@ namespace Puissance4
                 for (int i_col = 0; i_col < 4; i_col++)                         //parcourt les colonnes
                 {
                     gagne = true;                                               //temporairement à true
-                    if (_map[i_ligne, i_col] != null)                           //si on tombe sur un pion
+                    if (_map[i_ligne, i_col].pion != null)                           //si on tombe sur un pion
                     {
                         numJ = _map[i_ligne, i_col].pion.numJ;
                         for (int i = i_col; i < i_col+4; i++)                   //on parcourt les 3 cases de droite
                         {
-                            if (_map[i_ligne, i].pion.numJ != numJ)             //si un des pions est différent du premier
+                            if (_map[i_ligne, i].pion != null)                  
                             {
-                                gagne = false;                                  //gagne passe à false
+                                if (_map[i_ligne, i].pion.numJ != numJ)         //si un des pions est différent du premier
+                                    gagne = false;                                  //gagne passe à false
+                            }
+                            else
+                            {
+                                gagne = false;
                             }
                         }
                         if (gagne)                                              //si 4 pions alignés alors on renvoie true
@@ -143,14 +148,21 @@ namespace Puissance4
                 for (int i_ligne = 0; i_ligne < 3; i_ligne++)                   //parcourt les lignes
                 {
                     gagne = true;                                               //temporairement à true
-                    if (_map[i_ligne, i_col] != null)                           //si on tombe sur un pion
+                    if (_map[i_ligne, i_col].pion != null)                           //si on tombe sur un pion
                     {
                         numJ = _map[i_ligne, i_col].pion.numJ;
                         for (int i = i_ligne; i < i_ligne + 4; i++)             //on parcourt les 3 cases en-dessous
                         {
-                            if (_map[i, i_col].pion.numJ != numJ)               //si un des pions est différent du premier
+                            if (_map[i, i_col].pion != null)
                             {
-                                gagne = false;                                  //gagne passe à false
+                                if (_map[i, i_col].pion.numJ != numJ)               //si un des pions est différent du premier
+                                {
+                                    gagne = false;                                  //gagne passe à false
+                                }
+                            }
+                            else
+                            {
+                                gagne = false;
                             }
                         }
                         if (gagne)
@@ -186,14 +198,14 @@ namespace Puissance4
                     gagneDiagBG = true;
                     gagneDiagHD = true;
                     gagneDiagHG = true;
-                    if (_map[i_ligne, i_col] != null)                           //si on rencontre un jeton
+                    if (_map[i_ligne, i_col].pion != null)                           //si on rencontre un jeton
                     {
                         numJ = _map[i_ligne, i_col].pion.numJ;
                         for (int diag = 0; diag < 3; diag++)                    //parcourt les jetons sur les diagonales du jeton concerné
                         {
                             if ((i_ligne - 3) >= 0 && (i_col - 3) >= 0)                             //si on peut aligner 4 (autres) jetons en haut à gauche du jeton de base
                             {
-                                if (_map[i_ligne - diag, i_ligne - diag] != null)                   //si on rencontre un jeton
+                                if (_map[i_ligne - diag, i_col - diag].pion != null)                //si on rencontre un jeton
                                 {
                                     if (_map[i_ligne - diag, i_col - diag].pion.numJ != numJ)       //si le jeton rencontré est de la même couleur que celui de base
                                     {
@@ -207,7 +219,7 @@ namespace Puissance4
                             }
                             if ((i_ligne - 3) >= 0 && (i_col + 3) <= 6)                             //si on peut aligner 4 (autres) jetons en haut à droite du jeton de base
                             {
-                                if (_map[i_ligne - diag, i_col + diag] != null)                   //si on rencontre un jeton
+                                if (_map[i_ligne - diag, i_col + diag].pion != null)                //si on rencontre un jeton
                                 {
                                     if (_map[i_ligne - diag, i_col + diag].pion.numJ != numJ)       //si le jeton rencontré est de la même couleur que celui de base
                                     {
@@ -221,7 +233,7 @@ namespace Puissance4
                             }
                             if ((i_ligne + 3) <= 6 && (i_col + 3) <= 6)                             //si on peut aligner 4 (autres) jetons en bas à droite du jeton de base
                             {
-                                if (_map[i_ligne + diag, i_col + diag] != null)                     //si on rencontre un jeton
+                                if (_map[i_ligne + diag, i_col + diag].pion != null)                //si on rencontre un jeton
                                 {
                                     if (_map[i_ligne + diag, i_col + diag].pion.numJ != numJ)       //si le jeton rencontré est de la même couleur que celui de base
                                     {
@@ -235,7 +247,7 @@ namespace Puissance4
                             }
                             if ((i_ligne + 3) >= 6 && (i_col - 3) <= 0)                             //si on peut aligner 4 (autres) jetons en bas à gauche du jeton de base
                             {
-                                if (_map[i_ligne + diag, i_col - diag] != null)                     //si on rencontre un jeton
+                                if (_map[i_ligne + diag, i_col - diag].pion != null)                //si on rencontre un jeton
                                 {
                                     if (_map[i_ligne + diag, i_col - diag].pion.numJ != numJ)       //si le jeton rencontré est de la même couleur que celui de base
                                     {
@@ -257,12 +269,19 @@ namespace Puissance4
                 return numJ;
             }
             //IL RESTE 4 DIAGONALES HORS DU PETIT CARRE A TESTER
-            if (_map[4, 1] != null)                                         //première diagonale
+            if (_map[4, 1].pion != null)                                    //première diagonale
             {
                 numJ = _map[4, 1].pion.numJ;
                 for (int diag1 = 0; diag1 < 3; diag1++)
                 {
-                    if (_map[4 - diag1, 1 + diag1].pion.numJ != numJ)
+                    if (_map[4 - diag1, 1 + diag1].pion != null)
+                    {
+                        if (_map[4 - diag1, 1 + diag1].pion.numJ != numJ)
+                        {
+                            gagneDiag1 = false;
+                        }
+                    }
+                    else
                     {
                         gagneDiag1 = false;
                     }
@@ -273,15 +292,23 @@ namespace Puissance4
                 }
             }
 
-            if (_map[5, 1] != null)                                         //deuxième diago
+            if (_map[5, 1].pion != null)                                         //deuxième diago
             {
                 numJ = _map[5, 1].pion.numJ;
                 for (int diag2 = 0; diag2 < 3; diag2++)
                 {
-                    if (_map[5 - diag2, 1 + diag2].pion.numJ != numJ)
+                    if (_map[5 - diag2, 1 + diag2].pion != null)
+                    {
+                        if (_map[5 - diag2, 1 + diag2].pion.numJ != numJ)
+                        {
+                            gagneDiag2 = false;
+                        }
+                    }
+                    else
                     {
                         gagneDiag2 = false;
                     }
+                    
                 }
                 if (gagneDiag2)
                 {
@@ -292,12 +319,19 @@ namespace Puissance4
                     gagneDiag2 = true;
                 }
             }
-            if (_map[4, 2] != null)                                         //deuxième diagonale
+            if (_map[4, 2].pion != null)                                         //deuxième diagonale
             {
                 numJ = _map[4, 2].pion.numJ;
                 for (int diag2 = 0; diag2 < 3; diag2++)
                 {
-                    if (_map[4 - diag2, 2 + diag2].pion.numJ != numJ)
+                    if (_map[4 - diag2, 2 + diag2].pion != null)
+                    {
+                        if (_map[4 - diag2, 2 + diag2].pion.numJ != numJ)
+                        {
+                            gagneDiag2 = false;
+                        }
+                    }
+                    else
                     {
                         gagneDiag2 = false;
                     }
@@ -309,12 +343,19 @@ namespace Puissance4
             }
 
 
-            if (_map[5, 2] != null)                                         //troisième diagonale
+            if (_map[5, 2].pion != null)                                         //troisième diagonale
             {
                 numJ = _map[5, 2].pion.numJ;
                 for (int diag3 = 0; diag3 < 3; diag3++)
                 {
-                    if (_map[5 - diag3, 2 + diag3].pion.numJ != numJ)
+                    if (_map[5 - diag3, 2 + diag3].pion != null)
+                    {
+                        if (_map[5 - diag3, 2 + diag3].pion.numJ != numJ)
+                        {
+                            gagneDiag3 = false;
+                        }
+                    }
+                    else
                     {
                         gagneDiag3 = false;
                     }
@@ -328,12 +369,19 @@ namespace Puissance4
                     gagneDiag3 = true;
                 }
             }
-            if (_map[4, 3] != null)                                         //troisième diagonale
+            if (_map[4, 3].pion != null)                                         //troisième diagonale
             {
                 numJ = _map[4, 3].pion.numJ;
                 for (int diag3 = 0; diag3 < 3; diag3++)
                 {
-                    if (_map[4 - diag3, 3 + diag3].pion.numJ != numJ)
+                    if (_map[4 - diag3, 3 + diag3].pion != null)
+                    {
+                        if (_map[4 - diag3, 3 + diag3].pion.numJ != numJ)
+                        {
+                            gagneDiag3 = false;
+                        }
+                    }
+                    else
                     {
                         gagneDiag3 = false;
                     }
@@ -344,12 +392,19 @@ namespace Puissance4
                 }
             }
 
-            if (_map[5, 3] != null)
+            if (_map[5, 3].pion != null)                                            //quatrième diagonale
             {
                 numJ = _map[5, 3].pion.numJ;
                 for (int diag4 = 0; diag4 < 3; diag4++)
                 {
-                    if (_map[5 - diag4, 3 + diag4].pion.numJ != numJ)
+                    if (_map[5 - diag4, 3 + diag4].pion != null)
+                    {
+                        if (_map[5 - diag4, 3 + diag4].pion.numJ != numJ)
+                        {
+                            gagneDiag4 = false;
+                        }
+                    }
+                    else
                     {
                         gagneDiag4 = false;
                     }
