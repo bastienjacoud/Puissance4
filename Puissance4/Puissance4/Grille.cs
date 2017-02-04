@@ -167,7 +167,6 @@ namespace Puissance4
             {
                 for (int i_col = 0; i_col < 4; i_col++)                         //parcourt les colonnes du petit carré à vérifier
                 {
-                    gagneDiag = true;
                     gagneDiagBD = true;
                     gagneDiagBG = true;
                     gagneDiagHD = true;
