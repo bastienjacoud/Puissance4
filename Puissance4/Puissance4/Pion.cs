@@ -11,10 +11,6 @@ namespace Puissance4
     public class Pion : Microsoft.Xna.Framework.DrawableGameComponent
     {
         SpriteBatch _spriteBatch;
-        private double _maxX;
-        private double _maxY;
-        private double _minX;
-        private double _minY;
 
         private int _numJ;//0 si appartient à aucun joueur(ie pas de pion dans la case), 1 si pion du joueur 1, 2 si pion du joueur 2
         private Vector2 _posInitiale;//Position du pion avant déplacement
@@ -56,27 +52,26 @@ namespace Puissance4
             }
         }
 
-        public Pion(Game game, double maxX, double maxY, double minX, double minY) : base(game)
+        public Pion(Game game, double posX, double posY) : base(game)
         {
             _numJ = 1;
-            _maxX = maxX;
-            _minX = minX;
-            _maxY = maxY;
-            _minY = minY;
+            //Position par défaut
+            _posInitiale.X = (float)posX;
+            _posInitiale.Y = (float)posY;
 
             this.Game.Components.Add(this);
         }
 
-        public Pion(Game game, double maxX, double maxY, double minX, double minY, int numJ) : this(game, maxX, maxY, minX, minY)
+        public Pion(Game game, double posX, double posY, int numJ) : this(game, posX, posY)
         {
             _numJ = numJ;
+            //Position initiale du pion
+            _posInitiale.X = (float)posX;
+            _posInitiale.Y = (float)posY;
         }
 
         public override void Initialize()
         {
-            _posInitiale.X = (float)_maxX / 15;
-            _posInitiale.Y = (float)_maxY / 20;
-
             base.Initialize();
         }
 
@@ -112,7 +107,11 @@ namespace Puissance4
 
         public override void Update(GameTime gameTime)
         {
-
+            /*
+            float posY = _pion.Position.Y;
+            posY--;
+            _pion.Position = new Vector2(_pion.Position.X, posY);
+            */
             base.Update(gameTime);
         }
     }
