@@ -169,7 +169,6 @@ namespace Puissance4
 
         public int verifDiagonale()                                             //0 si personne gagne, 1 si jaune, 2 si rouge
         {
-            Boolean gagneDiag = true;                                           //true si une des diagonales donne la victoire
             Boolean gagneDiagHG = true;
             Boolean gagneDiagHD = true;
             Boolean gagneDiagBD = true;
@@ -183,7 +182,6 @@ namespace Puissance4
             {
                 for (int i_col = 0; i_col < 4; i_col++)                         //parcourt les colonnes du petit carré à vérifier
                 {
-                    gagneDiag = true;
                     gagneDiagBD = true;
                     gagneDiagBG = true;
                     gagneDiagHD = true;
