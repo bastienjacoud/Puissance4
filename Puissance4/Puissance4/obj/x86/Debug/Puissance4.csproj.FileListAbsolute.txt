@@ -17,7 +17,6 @@ C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Cont
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\rouge.xnb
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\cadre.xnb
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\Bitmap1.xnb
-D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.csprojResolveAssemblyReference.cache
 D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.exe
 D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.pdb
@@ -27,4 +26,3 @@ D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images
 D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\Bitmap1.xnb
 D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Puissance4.exe
 D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Puissance4.pdb
-C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.csprojResolveAssemblyReference.cache

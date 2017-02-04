@@ -109,7 +109,6 @@ namespace Puissance4
                 this.Exit();
             /*if (g.verifVerticale() != 0)
                 this.Exit();*/
-            
 
             base.Update(gameTime);
         }
