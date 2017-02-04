@@ -201,7 +201,7 @@ namespace Puissance4
                     if (_map[i_ligne, i_col].pion != null)                           //si on rencontre un jeton
                     {
                         numJ = _map[i_ligne, i_col].pion.numJ;
-                        for (int diag = 0; diag < 3; diag++)                    //parcourt les jetons sur les diagonales du jeton concerné
+                        for (int diag = 0; diag < 4; diag++)                    //parcourt les jetons sur les diagonales du jeton concerné
                         {
                             if ((i_ligne - 3) >= 0 && (i_col - 3) >= 0)                             //si on peut aligner 4 (autres) jetons en haut à gauche du jeton de base
                             {
@@ -231,7 +231,7 @@ namespace Puissance4
                                     gagneDiagHD = false;
                                 }
                             }
-                            if ((i_ligne + 3) <= 6 && (i_col + 3) <= 6)                             //si on peut aligner 4 (autres) jetons en bas à droite du jeton de base
+                            if ((i_ligne + 3) < 6 && (i_col + 3) <= 6)                             //si on peut aligner 4 (autres) jetons en bas à droite du jeton de base
                             {
                                 if (_map[i_ligne + diag, i_col + diag].pion != null)                //si on rencontre un jeton
                                 {
@@ -245,7 +245,7 @@ namespace Puissance4
                                     gagneDiagBD = false;
                                 }
                             }
-                            if ((i_ligne + 3) >= 6 && (i_col - 3) <= 0)                             //si on peut aligner 4 (autres) jetons en bas à gauche du jeton de base
+                            if ((i_ligne + 3) > 6 && (i_col - 3) <= 0)                             //si on peut aligner 4 (autres) jetons en bas à gauche du jeton de base
                             {
                                 if (_map[i_ligne + diag, i_col - diag].pion != null)                //si on rencontre un jeton
                                 {
@@ -272,7 +272,7 @@ namespace Puissance4
             if (_map[4, 1].pion != null)                                    //première diagonale
             {
                 numJ = _map[4, 1].pion.numJ;
-                for (int diag1 = 0; diag1 < 3; diag1++)
+                for (int diag1 = 1; diag1 < 4; diag1++)
                 {
                     if (_map[4 - diag1, 1 + diag1].pion != null)
                     {
@@ -295,7 +295,7 @@ namespace Puissance4
             if (_map[5, 1].pion != null)                                         //deuxième diago
             {
                 numJ = _map[5, 1].pion.numJ;
-                for (int diag2 = 0; diag2 < 3; diag2++)
+                for (int diag2 = 1; diag2 < 4; diag2++)
                 {
                     if (_map[5 - diag2, 1 + diag2].pion != null)
                     {
@@ -322,7 +322,7 @@ namespace Puissance4
             if (_map[4, 2].pion != null)                                         //deuxième diagonale
             {
                 numJ = _map[4, 2].pion.numJ;
-                for (int diag2 = 0; diag2 < 3; diag2++)
+                for (int diag2 = 1; diag2 < 4; diag2++)
                 {
                     if (_map[4 - diag2, 2 + diag2].pion != null)
                     {
@@ -346,7 +346,7 @@ namespace Puissance4
             if (_map[5, 2].pion != null)                                         //troisième diagonale
             {
                 numJ = _map[5, 2].pion.numJ;
-                for (int diag3 = 0; diag3 < 3; diag3++)
+                for (int diag3 = 1; diag3 < 4; diag3++)
                 {
                     if (_map[5 - diag3, 2 + diag3].pion != null)
                     {
@@ -372,7 +372,7 @@ namespace Puissance4
             if (_map[4, 3].pion != null)                                         //troisième diagonale
             {
                 numJ = _map[4, 3].pion.numJ;
-                for (int diag3 = 0; diag3 < 3; diag3++)
+                for (int diag3 = 1; diag3 < 4; diag3++)
                 {
                     if (_map[4 - diag3, 3 + diag3].pion != null)
                     {
@@ -395,7 +395,7 @@ namespace Puissance4
             if (_map[5, 3].pion != null)                                            //quatrième diagonale
             {
                 numJ = _map[5, 3].pion.numJ;
-                for (int diag4 = 0; diag4 < 3; diag4++)
+                for (int diag4 = 1; diag4 < 4; diag4++)
                 {
                     if (_map[5 - diag4, 3 + diag4].pion != null)
                     {
