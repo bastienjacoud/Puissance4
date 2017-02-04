@@ -111,14 +111,19 @@ namespace Puissance4
                 for (int i_col = 0; i_col < 4; i_col++)                         //parcourt les colonnes
                 {
                     gagne = true;                                               //temporairement à true
-                    if (_map[i_ligne, i_col] != null)                           //si on tombe sur un pion
+                    if (_map[i_ligne, i_col].pion != null)                           //si on tombe sur un pion
                     {
                         numJ = _map[i_ligne, i_col].pion.numJ;
                         for (int i = i_col; i < i_col+4; i++)                   //on parcourt les 3 cases de droite
                         {
-                            if (_map[i_ligne, i].pion.numJ != numJ)             //si un des pions est différent du premier
+                            if (_map[i_ligne, i].pion != null)                  //si un des pions est différent du premier
                             {
-                                gagne = false;                                  //gagne passe à false
+                                if(_map[i_ligne, i].pion.numJ != numJ)
+                                    gagne = false;                                  //gagne passe à false
+                            }
+                            else
+                            {
+                                gagne = false;
                             }
                         }
                         if (gagne)                                              //si 4 pions alignés alors on renvoie true
