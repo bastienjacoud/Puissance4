@@ -143,7 +143,7 @@ namespace Puissance4
         public int verifVerticale(){                                            //0 si personne gagne, 1 si jaune, 2 si rouge
             Boolean gagne = true;                                               //true si partie gagnée, false sinon
             int numJ;
-            for (int i_col = 0; i_col < 6; i_col++)                             //parcourt les colonnes
+            for (int i_col = 0; i_col <= 6; i_col++)                             //parcourt les colonnes
             {
                 for (int i_ligne = 0; i_ligne < 3; i_ligne++)                   //parcourt les lignes
                 {
