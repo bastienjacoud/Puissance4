@@ -20,9 +20,11 @@ namespace Puissance4
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         KeyboardState oldKey;
-        private Pion p;
+        private Pion p1;
+        private Pion p2;
         private Grille g;
-        private int colonne;
+        private int colonne;//colonne choisie par le joueur pour placer le pion(de 0 à 6)
+        private int _joueurActuel;
 
         public Jeu()
         {
@@ -54,11 +56,10 @@ namespace Puissance4
 
 
             colonne = 3; // placement par défaut
-            p = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2);
+            _joueurActuel = 1;
+            p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2, 1);
+            p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, 2);
             g = new Grille(this, maxX, maxY);
-
-            
-
 
             base.Initialize();
         }
@@ -96,11 +97,13 @@ namespace Puissance4
                 this.Exit();
 
             // TODO: Add your update logic here
-            if (ActionClavier() != 0)
-                g.placerPion(this, 1, ActionClavier());
-
-            
-
+            int b = ActionClavier();
+            if (b >= 0 && b<=6)
+            {  
+                ChangementJoueur(g.placerPion(this, _joueurActuel, b));
+            }
+            if (g.verifHorizontale() != 0)
+                this.Exit();
 
             base.Update(gameTime);
         }
@@ -114,8 +117,36 @@ namespace Puissance4
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            g.Draw(gameTime);
+            
+            if (_joueurActuel == 1)
+                p1.Draw(gameTime);
+            else if (_joueurActuel == 2)
+                p2.Draw(gameTime);
+        }
 
-            base.Draw(gameTime);
+        private void ChangementJoueur(bool b)
+        {
+            if(b)// Si le changement de joueur a bien lieu.
+            {
+                if (_joueurActuel == 1)
+                {
+                    float maxX = this.GraphicsDevice.Viewport.Width;
+                    p1.pion.Position = new Vector2((maxX - (1 * 100)) / 2, p1.pion.Position.Y);
+                    _joueurActuel = 2;
+                }
+                    
+
+                else if (_joueurActuel == 2)
+                {
+                    float maxX = this.GraphicsDevice.Viewport.Width;
+                    p2.pion.Position = new Vector2((maxX - (1 * 100)) / 2, p2.pion.Position.Y);
+                    _joueurActuel = 1;
+                }
+                    
+
+                colonne = 3;
+            }        
         }
 
         private int ActionClavier()
@@ -126,9 +157,18 @@ namespace Puissance4
                 //on vérifie s’il est possible de se déplacer
                 if((!oldKey.IsKeyDown(Keys.Right)) && (colonne != 6))
                 {
-                    float posPX = p.pion.Position.X;
-                    posPX += 100;
-                    p.pion.Position = new Vector2(posPX, p.pion.Position.Y);
+                    if (_joueurActuel == 1)
+                    {
+                        float posPX = p1.pion.Position.X;
+                        posPX += 100;
+                        p1.pion.Position = new Vector2(posPX, p1.pion.Position.Y);
+                    }
+                    else if (_joueurActuel == 2)
+                    {
+                        float posPX = p2.pion.Position.X;
+                        posPX += 100;
+                        p2.pion.Position = new Vector2(posPX, p2.pion.Position.Y);
+                    }
                     colonne ++;
                 }
             }
@@ -137,9 +177,19 @@ namespace Puissance4
                 //on vérifie s’il est possible de se déplacer
                 if((!oldKey.IsKeyDown(Keys.Left)) && (colonne != 0))
                 {
-                    float posPX = p.pion.Position.X;
-                    posPX -= 100;
-                    p.pion.Position = new Vector2(posPX, p.pion.Position.Y);
+                    if(_joueurActuel == 1)
+                    {
+                        float posPX = p1.pion.Position.X;
+                        posPX -= 100;
+                        p1.pion.Position = new Vector2(posPX, p1.pion.Position.Y);
+                    }
+                    else if(_joueurActuel == 2)
+                    {
+                        float posPX = p2.pion.Position.X;
+                        posPX -= 100;
+                        p2.pion.Position = new Vector2(posPX, p2.pion.Position.Y);
+                    }
+                    
                     colonne --;
                 }
             }
@@ -155,7 +205,7 @@ namespace Puissance4
 
             
             oldKey = keyboard;
-            return 0;
+            return -1;
         }
     }
 }
