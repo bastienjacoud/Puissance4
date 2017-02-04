@@ -245,7 +245,7 @@ namespace Puissance4
                                     gagneDiagBD = false;
                                 }
                             }
-                            if ((i_ligne + 3) > 6 && (i_col - 3) <= 0)                             //si on peut aligner 4 (autres) jetons en bas à gauche du jeton de base
+                            if ((i_ligne + 3) > 6 && (i_col - 3) >= 0)                             //si on peut aligner 4 (autres) jetons en bas à gauche du jeton de base
                             {
                                 if (_map[i_ligne + diag, i_col - diag].pion != null)                //si on rencontre un jeton
                                 {

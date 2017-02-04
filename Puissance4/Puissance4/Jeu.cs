@@ -103,8 +103,12 @@ namespace Puissance4
                 ChangementJoueur(g.placerPion(this, _joueurActuel, b));
             }
             
-            if (g.verifHorizontale() != 0 || g.verifDiagonale() != 0 )
+           /* if (g.verifHorizontale() != 0)
+                this.Exit();*/
+            if (g.verifDiagonale() != 0)
                 this.Exit();
+            /*if (g.verifVerticale() != 0)
+                this.Exit();*/
             
 
             base.Update(gameTime);
