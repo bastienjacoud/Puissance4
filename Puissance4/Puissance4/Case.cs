@@ -62,9 +62,9 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
-        public Case(Game game, double posX, double posY, double posPX,double posPY, int numJ) : this(game,posX,posY)
+        public Case(Game game, double posX, double posY, double posPY, int numJ) : this(game,posX,posY)
         {
-            _pion = new Pion(game, posPX, posPY, numJ);
+            _pion = new Pion(game, posX, posY, posPY, numJ);
         }
 
         public override void Initialize()

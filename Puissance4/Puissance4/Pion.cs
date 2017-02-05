@@ -14,6 +14,7 @@ namespace Puissance4
 
         private int _numJ;//0 si appartient à aucun joueur(ie pas de pion dans la case), 1 si pion du joueur 1, 2 si pion du joueur 2
         private Vector2 _posInitiale;//Position du pion avant déplacement
+        private double _posYDep; //Position verticale du pion avant le début de l'animation
         private ObjetPuissance4 _pion;//position du pion à n'importe quel moment + taille + texture
 
         public int numJ
@@ -62,12 +63,13 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
-        public Pion(Game game, double posX, double posY, int numJ) : base(game)
+        public Pion(Game game, double posX, double posY,double posYDep, int numJ) : base(game)
         {
             _numJ = numJ;
             //Position initiale du pion
             _posInitiale.X = (float)posX;
             _posInitiale.Y = (float)posY;
+            _posYDep = posYDep;
 
             this.Game.Components.Add(this);
         }
@@ -84,12 +86,12 @@ namespace Puissance4
                 if (_numJ == 1)
                 {
                     _pion = new ObjetPuissance4(Game.Content.Load<Texture2D>(@"images\jaune"),
-                    _posInitiale, Vector2.Zero);
+                    new Vector2(_posInitiale.X,(float)_posYDep), Vector2.Zero);
                 }
                 else if (_numJ == 2)
                 {
                     _pion = new ObjetPuissance4(Game.Content.Load<Texture2D>(@"images\rouge"),
-                    _posInitiale, Vector2.Zero);
+                    new Vector2(_posInitiale.X, (float)_posYDep), Vector2.Zero);
                 }
                 taille.X = _pion.Texture.Width;
                 taille.Y = _pion.Texture.Height;
@@ -111,12 +113,19 @@ namespace Puissance4
 
         public override void Update(GameTime gameTime)
         {
-            /*
-            float posY = _pion.Position.Y;
-            posY--;
-            _pion.Position = new Vector2(_pion.Position.X, posY);
-            */
+
+            diminuePosVerticale();
+
             base.Update(gameTime);
+        }
+
+        private void diminuePosVerticale()
+        {
+            if (_posYDep < _posInitiale.Y)
+            {
+                _posYDep+=5;
+                _pion.Position = new Vector2(_pion.Position.X, (float)_posYDep);
+            }              
         }
     }
 }

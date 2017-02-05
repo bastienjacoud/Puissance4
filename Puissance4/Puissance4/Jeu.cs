@@ -57,8 +57,10 @@ namespace Puissance4
 
             colonne = 3; // placement par défaut
             _joueurActuel = 1;
-            p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2, 1);
-            p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, 2);
+            
+            p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2, (maxY - (6 * 100) - 100) / 2, 1);
+            p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, (maxY - (6 * 100) - 100) / 2, 2);
+
             g = new Grille(this, maxX, maxY);
             
 
@@ -100,14 +102,15 @@ namespace Puissance4
             // TODO: Add your update logic here
             int b = ActionClavier();
             if (b >= 0 && b<=6)
-            {  
-                ChangementJoueur(g.placerPion(this, _joueurActuel, b));
+            {
+                double maxY = this.GraphicsDevice.Viewport.Height;
+                ChangementJoueur(g.placerPion(this, _joueurActuel, b, (maxY - (6 * 100) - 100) / 2));
             }
             
             if (g.verifGrille() != 0)
             {
-                p1 = new Pion(this, 0, 0, 1);
-                p2 = new Pion(this, 0, 0, 2);
+                p1 = new Pion(this, 0, 0, 0, 1);
+                p2 = new Pion(this, 0, 0, 0, 2);
             }
 
             base.Update(gameTime);
@@ -128,6 +131,7 @@ namespace Puissance4
                 p1.Draw(gameTime);
             else if (_joueurActuel == 2)
                 p2.Draw(gameTime);
+                
         }
 
         private void ChangementJoueur(bool b)

@@ -74,12 +74,12 @@ namespace Puissance4
         }
 
 
-        public bool placerPion(Game game, int numJ, int numCol)
+        public bool placerPion(Game game, int numJ, int numCol, double posPY)
         {
             int place = deciderPlace(numCol);
             if(place>=0 && place <=6)
             {
-                _map[place, numCol] = new Case(game, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, numJ);
+                _map[place, numCol] = new Case(game, _map[place, numCol].case1.Position.X, _map[place, numCol].case1.Position.Y, posPY, numJ);
                 return true;
             }
                
