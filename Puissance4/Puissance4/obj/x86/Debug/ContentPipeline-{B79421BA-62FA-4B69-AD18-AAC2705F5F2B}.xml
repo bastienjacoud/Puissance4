@@ -37,6 +37,15 @@
       <Output>C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\images\Bitmap1.xnb</Output>
       <Time>2017-02-02T13:02:09.320718+01:00</Time>
     </Item>
+    <Item>
+      <Source>police.spritefont</Source>
+      <Name>police</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\police.xnb</Output>
+      <Time>2017-02-05T12:26:56.8300268+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{B79421BA-62FA-4B69-AD18-AAC2705F5F2B}</ContentProjectGUID>

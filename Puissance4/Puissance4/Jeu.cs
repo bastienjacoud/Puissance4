@@ -19,10 +19,15 @@ namespace Puissance4
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private SpriteFont _font;
+        private String _texte;
+
         KeyboardState oldKey;
+
         private Pion p1;
         private Pion p2;
         private Grille g;
+
         private int colonne;//colonne choisie par le joueur pour placer le pion(de 0 à 6)
         private int _joueurActuel;
 
@@ -49,7 +54,6 @@ namespace Puissance4
 
             this.Window.AllowUserResizing = true;
 
-            spriteBatch = new SpriteBatch(GraphicsDevice);
             // on définit les coordonnées de l'éran de sortie
             maxX = this.GraphicsDevice.Viewport.Width;
             maxY = this.GraphicsDevice.Viewport.Height;
@@ -57,7 +61,8 @@ namespace Puissance4
 
             colonne = 3; // placement par défaut
             _joueurActuel = 1;
-            
+            _texte = "C'est au Joueur " + _joueurActuel + " de jouer.";
+
             p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2, (maxY - (6 * 100) - 100) / 2, 1);
             p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, (maxY - (6 * 100) - 100) / 2, 2);
 
@@ -75,6 +80,7 @@ namespace Puissance4
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            _font = Content.Load<SpriteFont>("police");
 
             // TODO: use this.Content to load your game content here
         }
@@ -100,17 +106,21 @@ namespace Puissance4
                 this.Exit();
 
             // TODO: Add your update logic here
-            int b = ActionClavier();
-            if (b >= 0 && b<=6)
+            if(_joueurActuel == 1 || _joueurActuel == 2)
             {
-                double maxY = this.GraphicsDevice.Viewport.Height;
-                ChangementJoueur(g.placerPion(this, _joueurActuel, b, (maxY - (6 * 100) - 100) / 2));
+                int b = ActionClavier();
+                if (b >= 0 && b <= 6)
+                {
+                    double maxY = this.GraphicsDevice.Viewport.Height;
+                    ChangementJoueur(g.placerPion(this, _joueurActuel, b, (maxY - (6 * 100) - 100) / 2));
+                }
             }
             
             if (g.verifGrille() != 0)
             {
-                p1 = new Pion(this, 0, 0, 0, 1);
-                p2 = new Pion(this, 0, 0, 0, 2);
+                if(_joueurActuel != 0)
+                    _texte = "Le joueur " + _joueurActuel + " a gagné!";
+                _joueurActuel = 0;
             }
 
             base.Update(gameTime);
@@ -125,12 +135,15 @@ namespace Puissance4
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            spriteBatch.DrawString(_font, _texte, new Vector2(0, 0), Color.Black);
             g.Draw(gameTime);
             
             if (_joueurActuel == 1)
                 p1.Draw(gameTime);
             else if (_joueurActuel == 2)
                 p2.Draw(gameTime);
+            spriteBatch.End();
                 
         }
 
@@ -152,7 +165,8 @@ namespace Puissance4
                     p2.pion.Position = new Vector2((maxX - (1 * 100)) / 2, p2.pion.Position.Y);
                     _joueurActuel = 1;
                 }
-                    
+
+                _texte = "C'est au Joueur " + _joueurActuel + " de jouer.";
 
                 colonne = 3;
             }        
