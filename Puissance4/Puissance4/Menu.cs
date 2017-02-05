@@ -111,7 +111,7 @@ namespace Puissance4
             _touches = "Touches";
             _quitter = "Quitter";
 
-            _explicationTouches = "Déplacez-vous avec les flèches puis lachez le pion avce entrée.";
+            _explicationTouches = "Déplacez-vous avec les flèches puis lâchez le pion avec entrée.";
             _msgTouches = "Appuyez sur entrée pour revenir au menu principal.";
             this.Game.Components.Add(this);
         }
