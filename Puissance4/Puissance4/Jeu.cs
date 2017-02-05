@@ -11,10 +11,13 @@ namespace Puissance4
     public class Jeu : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private SpriteBatch spriteBatch;
         private SpriteFont _font;
         private String _texte;
+        private String _msgGagnant;
         private Menu _menu;
+        private bool _premierCoup;
+        private bool _reinitialise;//vaut 1 ssi une partie vient d'être relancée.
 
         KeyboardState oldKey;
 
@@ -52,18 +55,36 @@ namespace Puissance4
             maxX = this.GraphicsDevice.Viewport.Width;
             maxY = this.GraphicsDevice.Viewport.Height;
 
-
+            _reinitialise = false;
+            _premierCoup = true;
             colonne = 3; // placement par défaut
             _joueurActuel = 1;
             _texte = "C'est au Joueur " + _joueurActuel + " de jouer.";
+            _msgGagnant = "Appuyez sur Entrée pour revenir au menu.";
 
-            _menu = new Menu(this, maxX, maxY);
+            
             p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2, (maxY - (6 * 100) - 100) / 2, 1);
             p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, (maxY - (6 * 100) - 100) / 2, 2);
 
             g = new Grille(this, maxX, maxY);
-            
 
+            _menu = new Menu(this, maxX, maxY);
+            base.Initialize();
+        }
+
+        private void ReInitialise(int maxX, int maxY)
+        {
+            _premierCoup = true;
+            colonne = 3; // placement par défaut
+            _joueurActuel = 1;
+            _texte = "C'est au Joueur " + _joueurActuel + " de jouer.";
+            _msgGagnant = "Appuyez sur Entrée pour revenir au menu.";
+
+
+            p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, (maxY - (6 * 100) - 100) / 2, 1);
+            p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, (maxY - (6 * 100) - 100) / 2, 2);
+
+            g = new Grille(this, maxX, maxY);
             base.Initialize();
         }
 
@@ -102,30 +123,32 @@ namespace Puissance4
                 this.Exit();
 
             // TODO: Add your update logic here
-            if(_menu.actif)
+            if (_menu.jeuActif)
             {
-
-            }
-            else
-            {
-                if (_joueurActuel == 1 || _joueurActuel == 2)
+                if(_reinitialise)
                 {
-                    int b = ActionClavier();
-                    if (b >= 0 && b <= 6)
-                    {
-                        double maxY = this.GraphicsDevice.Viewport.Height;
-                        ChangementJoueur(g.placerPion(this, _joueurActuel, b, (maxY - (6 * 100) - 100) / 2));
-                    }
+                    int maxX = this.GraphicsDevice.Viewport.Width;
+                    int maxY = this.GraphicsDevice.Viewport.Height;
+                    this.ReInitialise(maxX, maxY);
+                    _reinitialise = false;
                 }
-
-                if (g.verifGrille() != 0)
+                int b = ActionClavier();
+                if (b >= 0 && b <= 6)
+                {
+                    double maxY = this.GraphicsDevice.Viewport.Height;
+                    ChangementJoueur(g.placerPion(this, _joueurActuel, b, (maxY - (6 * 100) - 100) / 2));
+                }
+                int gagnant = g.verifGrille();
+                if (gagnant != 0)
                 {
                     if (_joueurActuel != 0)
-                        _texte = "Le joueur " + _joueurActuel + " a gagné!";
+                        _texte = "Le joueur " + gagnant + " a gagné!";
                     _joueurActuel = 0;
+                    _menu.retourMenu = true;
                 }
             }
             base.Update(gameTime);
+            
         }
 
         /// <summary>
@@ -138,14 +161,32 @@ namespace Puissance4
 
             // TODO: Add your drawing code here
             
-            if(_menu.actif)
+            if(_menu.quitterActif)
+            {
+                this.Exit();
+            }
+            else if(!_menu.jeuActif)
             {
                 _menu.Draw(gameTime);
             }
             else
             {
                 spriteBatch.Begin();
-                spriteBatch.DrawString(_font, _texte, new Vector2(0, 0), Color.Black);
+                if(_joueurActuel == 0)
+                {
+                    Vector2 texteSize = _font.MeasureString(_texte);
+                    float maxX = this.GraphicsDevice.Viewport.Width;
+                    float maxY = this.GraphicsDevice.Viewport.Height;
+                    spriteBatch.DrawString(_font, _texte, new Vector2((maxX - texteSize.X) / 2, 0), Color.Black);
+                    Vector2 msgSize = _font.MeasureString(_msgGagnant);
+                    spriteBatch.DrawString(_font, _msgGagnant, new Vector2( (maxX - msgSize.X) / 2, texteSize.Y + maxY/14 ), Color.Black);
+                }
+                else
+                {
+                    spriteBatch.DrawString(_font, _texte, new Vector2(0, 0), Color.Black);
+                }
+                    
+
                 g.Draw(gameTime);
 
                 if (_joueurActuel == 1)
@@ -229,11 +270,20 @@ namespace Puissance4
             else if (keyboard.IsKeyDown(Keys.Enter))
             {
                 //on vérifie s’il est possible de se déplacer
-                if(!oldKey.IsKeyDown(Keys.Enter))
+                if(!oldKey.IsKeyDown(Keys.Enter) && !_premierCoup)
                 {
-                    oldKey = keyboard;
-                    return colonne;
+                    if(_joueurActuel == 0)
+                    {
+                        _reinitialise = true;
+                        _menu.jeuActif = false;
+                    }
+                    else
+                    {
+                        oldKey = keyboard;
+                        return colonne;
+                    }      
                 }
+                _premierCoup = false;
             }
 
             
