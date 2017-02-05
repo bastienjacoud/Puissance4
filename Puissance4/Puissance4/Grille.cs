@@ -31,18 +31,18 @@ namespace Puissance4
 
             _map = new Case[6, 7];
             double posDepartX;
-            double posDepartY = maxY-(6*100);
-            for(int i=0;i<6;i++)
+            double posDepartY;
+            posDepartX = (maxX - (7 * 100)) / 2;
+            for (int i=0;i<7;i++)
             {
-                posDepartX = (maxX-(7*100)) / 2;
-                for (int j=0;j<7;j++)
+                posDepartY = maxY - (6 * 100);
+                for (int j=0;j<6;j++)
                 {
-                    _map[i, j] = new Case(game,posDepartX,posDepartY);
-                    posDepartX += 100;
+                    _map[j, i] = new Case(game,posDepartX,posDepartY);
+                    posDepartY += 100;
                 }
-                posDepartY += 100;
+                posDepartX += 100;
             }
-
             this.Game.Components.Add(this);
         }
 
@@ -58,11 +58,11 @@ namespace Puissance4
 
         public override void Draw(GameTime gameTime)
         {
-            for(int i=0;i<6;i++)
+            for(int i=0;i<7;i++)
             {
-                for(int j=0;j<7;j++)
+                for(int j=0;j<6;j++)
                 {
-                    _map[i, j].Draw(gameTime);
+                    _map[j, i].Draw(gameTime);
                 }
             }
             base.Draw(gameTime);
@@ -189,19 +189,13 @@ namespace Puissance4
             Boolean gagneDiag2 = true;
             Boolean gagneDiag3 = true;
             Boolean gagneDiag4 = true;                                          //hors du petit carré
-            Boolean pionCarre = false;
             int numJ = 0;
             for (int i_ligne = 0; i_ligne < 4; i_ligne++)                       //parcourt les lignes du petit carré à vérifier
             {
                 for (int i_col = 0; i_col < 4; i_col++)                         //parcourt les colonnes du petit carré à vérifier
-                {
-                    gagneDiagBD = true;
-                    gagneDiagBG = true;
-                    gagneDiagHD = true;
-                    gagneDiagHG = true;                                           
+                {                                          
                     if (_map[i_ligne, i_col].pion != null)                           //si on rencontre un jeton
-                    {
-                        pionCarre = true;                                       //Si pion dans le carré
+                    {                                  
                         numJ = _map[i_ligne, i_col].pion.numJ;
                         for (int diag = 1; diag < 4; diag++)                    //parcourt les jetons sur les diagonales du jeton concerné
                         {
@@ -212,6 +206,13 @@ namespace Puissance4
                                     if (_map[i_ligne - diag, i_col - diag].pion.numJ != numJ)       //si le jeton rencontré est de la même couleur que celui de base
                                     {
                                         gagneDiagHG = false;
+                                    }
+                                    else
+                                    {
+                                        if (diag == 1)
+                                            gagneDiagHG = true;
+                                        if ((diag == 3) && gagneDiagHG)
+                                            return numJ;
                                     }
                                 }
                                 else
@@ -231,6 +232,13 @@ namespace Puissance4
                                     {
                                         gagneDiagHD = false;
                                     }
+                                    else
+                                    {
+                                        if (diag == 1)
+                                            gagneDiagHD = true;
+                                        if ((diag == 3) && gagneDiagHD)
+                                            return numJ;
+                                    }
                                 }
                                 else
                                 {
@@ -249,6 +257,13 @@ namespace Puissance4
                                     {
                                         gagneDiagBD = false;
                                     }
+                                    else
+                                    {
+                                        if (diag == 1)
+                                            gagneDiagBD = true;
+                                        if ((diag == 3) && gagneDiagBD)
+                                            return numJ;
+                                    }
                                 }
                                 else
                                 {
@@ -259,13 +274,20 @@ namespace Puissance4
                             {
                                 gagneDiagBD = false;
                             }
-                            if ((i_ligne + 3) > 6 && (i_col - 3) >= 0)                             //si on peut aligner 4 (autres) jetons en bas à gauche du jeton de base
+                            if ((i_ligne + 3) < 6 && (i_col - 3) >= 0)                             //si on peut aligner 4 (autres) jetons en bas à gauche du jeton de base
                             {
                                 if (_map[i_ligne + diag, i_col - diag].pion != null)                //si on rencontre un jeton
                                 {
                                     if (_map[i_ligne + diag, i_col - diag].pion.numJ != numJ)       //si le jeton rencontré est de la même couleur que celui de base
                                     {
                                         gagneDiagBG = false;
+                                    }
+                                    else
+                                    {
+                                        if(diag == 1)
+                                            gagneDiagBG = true;
+                                        if ((diag == 3) && gagneDiagBG)
+                                            return numJ;
                                     }
                                 }
                                 else
@@ -282,10 +304,7 @@ namespace Puissance4
                 }
 
             }
-            if ((gagneDiagHG || gagneDiagHD || gagneDiagBG || gagneDiagBD) && pionCarre)               //si une des diagonales du petit carré est valide
-            {
-                return numJ;
-            }
+
             //IL RESTE 4 DIAGONALES HORS DU PETIT CARRE A TESTER
             if (_map[4, 1].pion != null)                                    //première diagonale
             {
@@ -433,6 +452,18 @@ namespace Puissance4
                 }
             }
             return 0;
+        }
+        public int verifGrille()
+        {
+            int d = verifDiagonale();
+            int h = verifHorizontale();
+            int v = verifVerticale();
+            if (d != 0)
+                return d;
+            else if (h != 0)
+                return h;
+            else
+                return v;
         }
     }
 }

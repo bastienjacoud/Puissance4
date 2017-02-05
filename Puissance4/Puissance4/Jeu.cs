@@ -60,6 +60,7 @@ namespace Puissance4
             p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2, 1);
             p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, 2);
             g = new Grille(this, maxX, maxY);
+            
 
             base.Initialize();
         }
@@ -102,13 +103,12 @@ namespace Puissance4
             {  
                 ChangementJoueur(g.placerPion(this, _joueurActuel, b));
             }
-           
-           /* if (g.verifHorizontale() != 0)
-                this.Exit();*/
-            if (g.verifDiagonale() != 0)
-                this.Exit();
-            /*if (g.verifVerticale() != 0)
-                this.Exit();*/
+            
+            if (g.verifGrille() != 0)
+            {
+                p1 = new Pion(this, 0, 0, 1);
+                p2 = new Pion(this, 0, 0, 2);
+            }
 
             base.Update(gameTime);
         }
