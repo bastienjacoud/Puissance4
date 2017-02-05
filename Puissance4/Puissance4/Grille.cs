@@ -21,7 +21,7 @@ namespace Puissance4
             }
             set
             {
-                _map = map;
+                _map = value;
             }
         }
 

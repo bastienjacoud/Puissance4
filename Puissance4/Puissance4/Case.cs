@@ -24,7 +24,7 @@ namespace Puissance4
             }
             set
             {
-                _pion = pion;
+                _pion = value;
             }
         }
 
@@ -36,7 +36,7 @@ namespace Puissance4
             }
             set
             {
-                _posInitiale = posInitiale;
+                _posInitiale = value;
             }
         }
         
@@ -48,14 +48,15 @@ namespace Puissance4
             }
             set
             {
-                _case = case1;
+                _case = value;
             }
         }
 
         public Case(Game game,double posX,double posY) : base(game)
         {
-            _pion = null;
+            _pion = null;//Par défaut(lors de la construction de la grille vide) le pion est à null
 
+            //Position initiale de la case
             _posInitiale.X = (float)posX;
             _posInitiale.Y = (float)posY;
 
@@ -64,6 +65,7 @@ namespace Puissance4
 
         public Case(Game game, double posX, double posY, double posPY, int numJ) : this(game,posX,posY)
         {
+            //Construction du pion dans la case
             _pion = new Pion(game, posX, posY, posPY, numJ);
         }
 

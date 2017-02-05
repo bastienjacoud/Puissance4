@@ -1,14 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System.Threading;
 
 namespace Puissance4
 {
@@ -21,6 +14,7 @@ namespace Puissance4
         SpriteBatch spriteBatch;
         private SpriteFont _font;
         private String _texte;
+        private Menu _menu;
 
         KeyboardState oldKey;
 
@@ -52,7 +46,7 @@ namespace Puissance4
             this.graphics.PreferredBackBufferHeight = 700;
             this.graphics.ApplyChanges();
 
-            this.Window.AllowUserResizing = true;
+            this.Window.AllowUserResizing = false;
 
             // on définit les coordonnées de l'éran de sortie
             maxX = this.GraphicsDevice.Viewport.Width;
@@ -63,6 +57,7 @@ namespace Puissance4
             _joueurActuel = 1;
             _texte = "C'est au Joueur " + _joueurActuel + " de jouer.";
 
+            _menu = new Menu(this, maxX, maxY);
             p1 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY-(6*100)-100)/2, (maxY - (6 * 100) - 100) / 2, 1);
             p2 = new Pion(this, (maxX - (1 * 100)) / 2, (maxY - (6 * 100) - 100) / 2, (maxY - (6 * 100) - 100) / 2, 2);
 
@@ -81,6 +76,7 @@ namespace Puissance4
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _font = Content.Load<SpriteFont>("police");
+            _menu.LoadContent(this.Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -106,23 +102,29 @@ namespace Puissance4
                 this.Exit();
 
             // TODO: Add your update logic here
-            if(_joueurActuel == 1 || _joueurActuel == 2)
+            if(_menu.actif)
             {
-                int b = ActionClavier();
-                if (b >= 0 && b <= 6)
+
+            }
+            else
+            {
+                if (_joueurActuel == 1 || _joueurActuel == 2)
                 {
-                    double maxY = this.GraphicsDevice.Viewport.Height;
-                    ChangementJoueur(g.placerPion(this, _joueurActuel, b, (maxY - (6 * 100) - 100) / 2));
+                    int b = ActionClavier();
+                    if (b >= 0 && b <= 6)
+                    {
+                        double maxY = this.GraphicsDevice.Viewport.Height;
+                        ChangementJoueur(g.placerPion(this, _joueurActuel, b, (maxY - (6 * 100) - 100) / 2));
+                    }
+                }
+
+                if (g.verifGrille() != 0)
+                {
+                    if (_joueurActuel != 0)
+                        _texte = "Le joueur " + _joueurActuel + " a gagné!";
+                    _joueurActuel = 0;
                 }
             }
-            
-            if (g.verifGrille() != 0)
-            {
-                if(_joueurActuel != 0)
-                    _texte = "Le joueur " + _joueurActuel + " a gagné!";
-                _joueurActuel = 0;
-            }
-
             base.Update(gameTime);
         }
 
@@ -135,16 +137,23 @@ namespace Puissance4
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            spriteBatch.DrawString(_font, _texte, new Vector2(0, 0), Color.Black);
-            g.Draw(gameTime);
             
-            if (_joueurActuel == 1)
-                p1.Draw(gameTime);
-            else if (_joueurActuel == 2)
-                p2.Draw(gameTime);
-            spriteBatch.End();
-                
+            if(_menu.actif)
+            {
+                _menu.Draw(gameTime);
+            }
+            else
+            {
+                spriteBatch.Begin();
+                spriteBatch.DrawString(_font, _texte, new Vector2(0, 0), Color.Black);
+                g.Draw(gameTime);
+
+                if (_joueurActuel == 1)
+                    p1.Draw(gameTime);
+                else if (_joueurActuel == 2)
+                    p2.Draw(gameTime);
+                spriteBatch.End();
+            }       
         }
 
         private void ChangementJoueur(bool b)
@@ -185,6 +194,7 @@ namespace Puissance4
                         float posPX = p1.pion.Position.X;
                         posPX += 100;
                         p1.pion.Position = new Vector2(posPX, p1.pion.Position.Y);
+                        
                     }
                     else if (_joueurActuel == 2)
                     {

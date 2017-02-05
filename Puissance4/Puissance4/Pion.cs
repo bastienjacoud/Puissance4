@@ -13,9 +13,9 @@ namespace Puissance4
         SpriteBatch _spriteBatch;
 
         private int _numJ;//0 si appartient à aucun joueur(ie pas de pion dans la case), 1 si pion du joueur 1, 2 si pion du joueur 2
-        private Vector2 _posInitiale;//Position du pion avant déplacement
-        private double _posYDep; //Position verticale du pion avant le début de l'animation
-        private ObjetPuissance4 _pion;//position du pion à n'importe quel moment + taille + texture
+        private Vector2 _posInitiale;//Position du pion au niveau de la case
+        private double _posYDep; //Position verticale du pion pendant l'animation de chute
+        private ObjetPuissance4 _pion;//position du pion lors de l'affichage
 
         public int numJ
         {
@@ -25,7 +25,7 @@ namespace Puissance4
             }
             set
             {
-                _numJ = numJ;
+                _numJ = value;
             }
         }
 
@@ -37,7 +37,19 @@ namespace Puissance4
             }
             set
             {
-                _posInitiale = posInitiale;
+                _posInitiale = value;
+            }
+        }
+
+        public double posYDep
+        {
+            get
+            {
+                return _posYDep;
+            }
+            set
+            {
+                _posYDep = value;
             }
         }
 
@@ -49,13 +61,13 @@ namespace Puissance4
             }
             set
             {
-                _pion = pion;
+                _pion = value;
             }
         }
 
         public Pion(Game game, double posX, double posY) : base(game)
         {
-            _numJ = 1;
+            _numJ = 1;//Par défaut, le pion appartient au joueur 1
             //Position par défaut
             _posInitiale.X = (float)posX;
             _posInitiale.Y = (float)posY;
