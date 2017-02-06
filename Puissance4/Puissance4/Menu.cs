@@ -11,29 +11,34 @@ namespace Puissance4
 {
     class Menu : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        SpriteBatch _spriteBatch;
-        private SpriteFont _font;
-        private KeyboardState oldKey;
+        SpriteBatch _spriteBatch;//spritebatch
+        private SpriteFont _font;//police
+        private KeyboardState oldKey;//ancienne touche appuyée par l'utilisateur
 
         private bool _jeuActif;//permet de savoir si le menu est actif ou si l'on est dans le jeu
         private bool _touchesActif;//permet de savoir si l'on veut avoir accès aux touches
         private bool _quitterActif;//permet de savoir si l'on veut quitter le jeu
         private int _sectionMenu;//1 pour jouer, 2 pour touches et 3 pour quitter(permet le changement de couleur)
-        private bool _retourMenu;
+        private bool _retourMenu;//permet de savoir si l'on vient de retourner au menu(transition jeu-menu)
 
+        //taille de la fenêtre
         private double _maxX;
         private double _maxY;
 
-        private String _titre;
+        private String _titre;//titre affiché
+        //2 lignes de présentation du jeu
         private String _presentation1;
         private String _presentation2;
+        //les 3 choix possibles au menu
         private String _jouer;
         private String _touches;
         private String _quitter;
 
+        //s'affiche lorsque l'on est dans la partie touche du menu
         private String _explicationTouches;
         private String _msgTouches;
 
+        //preperties
         public bool jeuActif
         {
             get
@@ -94,6 +99,7 @@ namespace Puissance4
             }
         }
 
+        //constructeur
         public Menu(Game game, double maxX, double maxY) : base(game)
         {
             _jeuActif = false;
@@ -111,16 +117,18 @@ namespace Puissance4
             _touches = "Touches";
             _quitter = "Quitter";
 
-            _explicationTouches = "Déplacez-vous avec les flèches puis lachez le pion avce entrée.";
+            _explicationTouches = "Déplacez-vous avec les flèches puis lâchez le pion avec entrée.";
             _msgTouches = "Appuyez sur entrée pour revenir au menu principal.";
             this.Game.Components.Add(this);
         }
 
+        //initialisation
         public override void Initialize()
         {
             base.Initialize();
         }
 
+        //chargement du menu, spritebatch et police
         public void LoadContent(ContentManager Content)
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -130,11 +138,13 @@ namespace Puissance4
             base.LoadContent();
         }
 
+        //affichage du menu
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            if(!_jeuActif && !_touchesActif && !_quitterActif)
+            if(!_jeuActif && !_touchesActif && !_quitterActif)//Si l'on est dans la "fenêtre principale" du menu
             {
+                //affichage du texte
                 Vector2 titreSize = _font.MeasureString(_titre);
                 _spriteBatch.DrawString(_font, _titre, new Vector2(((float)_maxX - titreSize.X) / 2, 0), Color.Black);
                 Vector2 pres1Size = _font.MeasureString(_presentation1);
@@ -142,6 +152,7 @@ namespace Puissance4
                 Vector2 pres2Size = _font.MeasureString(_presentation2);
                 _spriteBatch.DrawString(_font, _presentation2, new Vector2(((float)_maxX - pres2Size.X) / 2, 2 * (float)_maxY / 10), Color.Black);
                 Vector2 jouerSize = _font.MeasureString(_jouer);
+                //on affiche en rouge l'onglet préselectionné, les autres ne bleu
                 if (_sectionMenu == 1)
                     _spriteBatch.DrawString(_font, _jouer, new Vector2(((float)_maxX - jouerSize.X) / 2, 4 * (float)_maxY / 10), Color.Red);
                 else
@@ -157,7 +168,7 @@ namespace Puissance4
                 else
                     _spriteBatch.DrawString(_font, _quitter, new Vector2(((float)_maxX - quitterSize.X) / 2, 8 * (float)_maxY / 10), Color.Blue);
             }
-            else if(_touchesActif)
+            else if(_touchesActif)//si l'on est dans la partie explication de touches
             {
                 Vector2 explicationSize = _font.MeasureString(_explicationTouches);
                 _spriteBatch.DrawString(_font, _explicationTouches, new Vector2(((float)_maxX - explicationSize.X) / 2, 4 * (float)_maxY / 10), Color.Black);
@@ -171,26 +182,29 @@ namespace Puissance4
             base.Draw(gameTime);
         }
 
+        //mise à jour du manu
         public override void Update(GameTime gameTime)
         {
             ActionMenu();
             base.Update(gameTime);
         }
 
+        //gère les actions de l'utilisateur pour la sélection de jeu,touches, ou quitter
         private void ActionMenu()
         {
             KeyboardState keyboard = Keyboard.GetState();
-            if (keyboard.IsKeyDown(Keys.Down))
+            if (keyboard.IsKeyDown(Keys.Down))// si l'on appuie sur la flèche du bas
             {
-                if(!oldKey.IsKeyDown(Keys.Down))
+                if(!oldKey.IsKeyDown(Keys.Down))//permet de descendre uniquement d'un cran et de ne pas boucler
                 {
+                    //on met à jour la section du menu dans laquelle on se trouve
                     if (_sectionMenu == 1)
                         _sectionMenu = 2;
                     else if (_sectionMenu == 2)
                         _sectionMenu = 3;
                 }
             }
-            if (keyboard.IsKeyDown(Keys.Up))
+            if (keyboard.IsKeyDown(Keys.Up))//de même si l'on appuie sur la flèche du haut
             {
                 if (!oldKey.IsKeyDown(Keys.Up))
                 {
@@ -200,18 +214,19 @@ namespace Puissance4
                         _sectionMenu = 1;
                 }
             }
-            if (keyboard.IsKeyDown(Keys.Enter))
+            if (keyboard.IsKeyDown(Keys.Enter))// si l'on appuie sur entrée
             {
                 if (!oldKey.IsKeyDown(Keys.Enter))
                 {
-                    if(!_retourMenu)
+                    if(!_retourMenu)//évite de relancer le jeu directement après avoir appuyé sur entrée dans le jeu(lors du retour au menu)
                     {
-                        if (_touchesActif)
+                        if (_touchesActif)//permet de sortir de l'explication de touches
                         {
                             _touchesActif = false;
                         }
                         else
                         {
+                            //en fonction de l'onglet choisi, on met à jour nos booléens
                             if (_sectionMenu == 1)
                             {
                                 _jeuActif = true;
@@ -232,11 +247,11 @@ namespace Puissance4
                             }
                         }
                     }
-                    _retourMenu = false;
+                    _retourMenu = false;//on met à false le retour au menu
                     
                 }
             }
-            oldKey = keyboard;
+            oldKey = keyboard;//le choix rélisé va donc devenir l'ancien choix 
 
         }
     }

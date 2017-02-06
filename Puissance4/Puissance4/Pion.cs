@@ -10,13 +10,14 @@ namespace Puissance4
 {
     public class Pion : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        SpriteBatch _spriteBatch;
+        SpriteBatch _spriteBatch;//Spritebatch uilisée dans l'affichage du pion.
 
         private int _numJ;//0 si appartient à aucun joueur(ie pas de pion dans la case), 1 si pion du joueur 1, 2 si pion du joueur 2
         private Vector2 _posInitiale;//Position du pion au niveau de la case
         private double _posYDep; //Position verticale du pion pendant l'animation de chute
         private ObjetPuissance4 _pion;//position du pion lors de l'affichage
 
+        //properties
         public int numJ
         {
             get
@@ -65,6 +66,7 @@ namespace Puissance4
             }
         }
 
+        //constructeur du pion de base.
         public Pion(Game game, double posX, double posY) : base(game)
         {
             _numJ = 1;//Par défaut, le pion appartient au joueur 1
@@ -75,6 +77,7 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
+        //Constructeur surchargé.
         public Pion(Game game, double posX, double posY,double posYDep, int numJ) : base(game)
         {
             _numJ = numJ;
@@ -86,11 +89,13 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
+        //fonction xna d'initialisation
         public override void Initialize()
         {
             base.Initialize();
         }
 
+        //Charge le spritebatch et la texture, la taille et la position du pion.
         protected override void LoadContent()
         {
                 Vector2 taille;
@@ -114,6 +119,7 @@ namespace Puissance4
             base.LoadContent();
         }
 
+        //affiche un pion à l'écran
         public override void Draw(GameTime gameTime)
         {
                 _spriteBatch.Begin();
@@ -123,6 +129,7 @@ namespace Puissance4
             base.Draw(gameTime);
         }
 
+        //rafraichit l'affichage, et actualise les changements
         public override void Update(GameTime gameTime)
         {
 
@@ -131,6 +138,7 @@ namespace Puissance4
             base.Update(gameTime);
         }
 
+        //diminue la position verticale du pion (lors de l'animation de chute)
         private void diminuePosVerticale()
         {
             if (_posYDep < _posInitiale.Y)

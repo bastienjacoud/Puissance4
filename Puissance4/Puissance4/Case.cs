@@ -10,12 +10,13 @@ namespace Puissance4
 {
     public class Case : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        SpriteBatch _spriteBatch;
+        SpriteBatch _spriteBatch;//Spritebatch utilisée pour l'affichage d'une case
 
-        private ObjetPuissance4 _case;
-        private Vector2 _posInitiale;
-        private Pion _pion;
+        private ObjetPuissance4 _case;//objet puissance 4 contenant la texture, la position et la taille de la case.
+        private Vector2 _posInitiale;//position initiale de la case
+        private Pion _pion;//pion contenu dans la case
 
+        //properties
         public Pion pion
         {
             get
@@ -52,6 +53,7 @@ namespace Puissance4
             }
         }
 
+        //constructeur de base de la case(sans le pion)
         public Case(Game game,double posX,double posY) : base(game)
         {
             _pion = null;//Par défaut(lors de la construction de la grille vide) le pion est à null
@@ -63,17 +65,20 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
+        //constructeur surchargé de la case(avec le pion)
         public Case(Game game, double posX, double posY, double posPY, int numJ) : this(game,posX,posY)
         {
             //Construction du pion dans la case
             _pion = new Pion(game, posX, posY, posPY, numJ);
         }
 
+        //fonction d'initialisation 
         public override void Initialize()
         {      
             base.Initialize();
         }
 
+        //charge le contenu de l'objet puissance 4 case
         protected override void LoadContent()
         {
             Vector2 taille;
@@ -88,18 +93,21 @@ namespace Puissance4
             base.LoadContent();
         }
 
+        //affiche une case à l'écran
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
             _spriteBatch.Draw(_case.Texture, _case.Position, Color.Azure);
             _spriteBatch.End();
-
+            
+            //on affiche le pion uniquement s'il est défini
             if(_pion != null)
                 _pion.Draw(gameTime);
 
             base.Draw(gameTime);
         }
 
+        //mise à jour de l'affichage
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

@@ -9,11 +9,11 @@ namespace Puissance4
 {
     public class ObjetPuissance4
     {
-        private Texture2D _texture;
-        private Vector2 _position;
-        private Vector2 _size;
+        private Texture2D _texture;//texture de l'objet
+        private Vector2 _position;//position de l'objet
+        private Vector2 _size;//taille de l'objet
 
-
+        //preperties
         public Texture2D Texture
         {
             get { return _texture; }
@@ -33,6 +33,7 @@ namespace Puissance4
             set { _size = value; }
         }
 
+        //constructeur
         public ObjetPuissance4(Texture2D texture, Vector2 position, Vector2 size)
         {
             this._texture = texture;

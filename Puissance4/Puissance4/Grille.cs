@@ -10,9 +10,9 @@ namespace Puissance4
 {
     public class Grille : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        private Case[,] _map;
+        private Case[,] _map;//tableau de case constituant la grille
 
-
+        //properties 
         public Case[,] map
         {
             get
@@ -25,7 +25,7 @@ namespace Puissance4
             }
         }
 
-
+        //constructeur de la grille
         public Grille(Game game, double maxX, double maxY) : base(game)
         {
 
@@ -46,16 +46,19 @@ namespace Puissance4
             this.Game.Components.Add(this);
         }
 
+        //fonction d'initialisation
         public override void Initialize()
         {
             base.Initialize();
         }
 
+        //fonction de chargement
         protected override void LoadContent()
         {
             base.LoadContent();
         }
 
+        //fonction d'affichage de toutes les cases de la grille
         public override void Draw(GameTime gameTime)
         {
             for(int i=0;i<7;i++)
@@ -68,12 +71,13 @@ namespace Puissance4
             base.Draw(gameTime);
         }
 
+        //fonction d'actualisation
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
         }
 
-
+        //fonction qui place un pion sur le jeu en fonction de la colonne et du joueur
         public bool placerPion(Game game, int numJ, int numCol, double posPY)
         {
             int place = deciderPlace(numCol);
@@ -89,6 +93,7 @@ namespace Puissance4
             }
         }
 
+        //fonction qui choisit à quelle case du tableau va se positionner le pion, en fonction de la colonne
         public int deciderPlace(int numCol)     // 7 col 6 lig
         {
             int i = 5;
@@ -102,6 +107,7 @@ namespace Puissance4
             return i;
         }
 
+        //vérifie si 4 pions du même joueur sont alignés horizontalement
         public int verifHorizontale()                                           //0 si personne gagne, 1 si jaune, 2 si rouge
         {
             Boolean gagne = true;                                               //true si partie gagnée, false sinon
@@ -140,6 +146,7 @@ namespace Puissance4
             return 0;
         }
 
+        //vérifie si 4 pions du même joueur sont alignés verticalement
         public int verifVerticale(){                                            //0 si personne gagne, 1 si jaune, 2 si rouge
             Boolean gagne = true;                                               //true si partie gagnée, false sinon
             int numJ;
@@ -179,6 +186,10 @@ namespace Puissance4
             return 0;
         }
 
+        //vérifie si 4 pions du même joueur sont alignés en diagonale
+        //pour limiter les vérifications, on teste, pour chaque pion placé dans le carré 4x4 
+        //situé en haut à gauche toutes les diagonales. Dans un second temps, on 
+        //teste les diagonales hors du carré restantes
         public int verifDiagonale()                                             //0 si personne gagne, 1 si jaune, 2 si rouge
         {
             Boolean gagneDiagHG = true;
@@ -453,6 +464,8 @@ namespace Puissance4
             }
             return 0;
         }
+
+        //fontion qui vérifie qu'un joueur n'a pas gagné. Retourne 1 si le joueur 1 a gagné et 2 si le 2 a gagné
         public int verifGrille()
         {
             int d = verifDiagonale();
