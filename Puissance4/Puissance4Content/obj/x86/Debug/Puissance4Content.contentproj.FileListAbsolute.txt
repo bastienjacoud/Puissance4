@@ -1,1 +1,2 @@
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4Content\obj\x86\Debug\Puissance4Content.contentprojResolveAssemblyReference.cache
+D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4Content\obj\x86\Debug\Puissance4Content.contentprojResolveAssemblyReference.cache

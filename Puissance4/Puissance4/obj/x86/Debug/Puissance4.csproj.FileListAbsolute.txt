@@ -28,3 +28,5 @@ D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Puissance4.exe
 D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Puissance4.pdb
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.csprojResolveAssemblyReference.cache
 C:\documents\travail\info\C#\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\police.xnb
+D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\bin\x86\Debug\Content\police.xnb
+D:\Polytech\3A\ISI\Puissance4\Puissance4\Puissance4\obj\x86\Debug\Puissance4.csprojResolveAssemblyReference.cache
